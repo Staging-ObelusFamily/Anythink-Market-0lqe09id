@@ -20,7 +20,7 @@ jobs:
     outputs:
       aws-creds-defined: ${{ steps.aws-creds-defined.outputs.DEFINED }}
       kubeconfig-defined: ${{ steps.kubeconfig-defined.outputs.DEFINED }}
-    if: needs.check-kubernetes-enabled.outputs.kubernetes-enabled == 'true'
+#    if: needs.check-kubernetes-enabled.outputs.kubernetes-enabled == 'true'
     steps:
       - id: aws-creds-defined
         if: "${{env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != '' }}"
