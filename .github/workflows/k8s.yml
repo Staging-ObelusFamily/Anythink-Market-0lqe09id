@@ -10,7 +10,6 @@ jobs:
       kubernetes-enabled: ${{ steps.check-kubernetes-enabled.outputs.ENABLED }}
     steps:
       - id: check-kubernetes-enabled
-        if: "${{ env.AWS_ACCESS_KEY_ID != ''}}"
         run: echo "ENABLED=true" >> $GITHUB_OUTPUT
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
