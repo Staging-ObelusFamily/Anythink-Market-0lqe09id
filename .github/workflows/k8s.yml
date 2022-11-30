@@ -10,9 +10,10 @@ jobs:
       kubernetes-enabled: ${{ steps.check-kubernetes-enabled.outputs.ENABLED }}
     steps:
       - id: check-kubernetes-enabled
+        if: "${{ env.ENABLE_KUBERNETES != ''}}"
         run: echo "ENABLED=true" >> $GITHUB_OUTPUT
         env:
-          KUBERNETES_ENABLED: ${{ secrets.KUBERNETES_ENABLED }}
+          ENABLE_KUBERNETES: ${{ secrets.ENABLE_KUBERNETES }}
 
   check-secret:
     runs-on: ubuntu-latest
