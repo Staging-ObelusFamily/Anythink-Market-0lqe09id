@@ -11,14 +11,14 @@ jobs:
       kubeconfig-defined: ${{ steps.kubeconfig-defined.outputs.DEFINED }}
     steps:
       - id: aws-creds-defined
-        if: "${{ secrets.ENABLE_KUBERNETES != '' && env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != '' }}"
+        if: "${{ env.ENABLE_KUBERNETES != '' && env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != '' }}"
         run: echo "DEFINED=true" >> $GITHUB_OUTPUT
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - id: kubeconfig-defined
-        if: "${{ secrets.ENABLE_KUBERNETES != '' && env.KUBECONFIG != '' }}"
+        if: "${{ env.ENABLE_KUBERNETES != '' && env.KUBECONFIG != '' }}"
         run: echo "DEFINED=true" >> $GITHUB_OUTPUT
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
