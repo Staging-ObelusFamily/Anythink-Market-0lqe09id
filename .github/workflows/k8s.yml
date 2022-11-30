@@ -8,12 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       kubernetes-enabled: ${{ steps.enable-kubernetes-defined.outputs.DEFINED }}
+    env:
+      ENABLE_KUBERNETES: ${{ secrets.ENABLE_KUBERNETES }}
     steps:
       - id: enable-kubernetes-defined
         if: "${{ env.ENABLE_KUBERNETES }}"
         run: echo "DEFINED=true" >> $GITHUB_OUTPUT
-        env:
-          ENABLE_KUBERNETES: ${{ secrets.ENABLE_KUBERNETES }}
 
   check-secret:
     runs-on: ubuntu-latest
