@@ -9,16 +9,11 @@ jobs:
     outputs:
       kubernetes-enabled: ${{ steps.enable-kubernetes-defined.outputs.DEFINED }}
     steps:
-      - name: Dump GitHub context
-        env:
-          ENABLE_KUBERNETES: ${{ secrets.ENABLE_KUBERNETES }}
-        run: echo "$ENABLE_KUBERNETES"
-
       - id: enable-kubernetes-defined
         if: "${{ env.ENABLE_KUBERNETES != '' }}"
         run: echo "DEFINED=true" >> $GITHUB_OUTPUT
         env:
-          ENABLE_KUBERNETES: ${{ secrets.ENABLE_KUBERNETES }}
+          ENABLE_KUBERNETES: ${{ secrets.GAGA }}
 
   check-secret:
     runs-on: ubuntu-latest
