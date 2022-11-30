@@ -12,7 +12,6 @@ jobs:
       - id: check-kubernetes-enabled
         run: echo "ENABLED=true" >> $GITHUB_OUTPUT
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           ENABLE_KUBERNETES: ${{ secrets.ENABLE_KUBERNETES }}
 
   check-secret:
