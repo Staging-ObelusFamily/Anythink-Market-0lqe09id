@@ -7,7 +7,7 @@ jobs:
   check-kubernetes-enabled:
     runs-on: ubuntu-latest
     outputs:
-      enable-kubernetes-defined: ${{ steps.enable-kubernetes-defined.outputs.DEFINED }}
+      kubernetes-enabled-defined: ${{ steps.enable-kubernetes-defined.outputs.DEFINED }}
     steps:
       - id: enable-kubernetes-defined
         if: "${{ env.ENABLE_KUBERNETES != '' }}"
@@ -21,7 +21,7 @@ jobs:
     outputs:
       aws-creds-defined: ${{ steps.aws-creds-defined.outputs.DEFINED }}
       kubeconfig-defined: ${{ steps.kubeconfig-defined.outputs.DEFINED }}
-    if: needs.check-kubernetes-enabled.outputs.enable-kubernetes-defined == 'true'
+    if: needs.check-kubernetes-enabled.outputs.kubernetes-enabled == 'true'
     steps:
       - id: aws-creds-defined
         if: "${{env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != '' }}"
