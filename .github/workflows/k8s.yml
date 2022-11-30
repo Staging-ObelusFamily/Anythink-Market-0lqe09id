@@ -9,10 +9,10 @@ jobs:
     outputs:
       kubernetes-enabled: ${{ steps.enable-kubernetes-defined.outputs.DEFINED }}
     env:
-      ENABLE_KUBERNETES: ${{ secrets.ENABLE_KUBERNETES }}
+      ENABLE_KUBERNETES_DEFINED: ${{ secrets.ENABLE_KUBERNETES != '' }}
     steps:
       - id: enable-kubernetes-defined
-        if: "${{ env.ENABLE_KUBERNETES }}"
+        if: "${{ env.ENABLE_KUBERNETES_DEFINED == 'true' }}"
         run: echo "DEFINED=true" >> $GITHUB_OUTPUT
 
   check-secret:
