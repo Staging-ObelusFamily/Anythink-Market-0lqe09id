@@ -13,7 +13,7 @@ jobs:
         if: "${{ env.ENABLE_KUBERNETES != '' }}"
         run: echo "DEFINED=true" >> $GITHUB_OUTPUT
         env:
-          ENABLE_KUBERNETES: ${{ secrets.KUBERNETES_ENABLED }}
+          ENABLE_KUBERNETES: ${{ secrets.AWS_ACCESS_KEY_ID }}
 
   check-secret:
     runs-on: ubuntu-latest
