@@ -22,6 +22,7 @@ jobs:
         run: echo "DEFINED=true" >> $GITHUB_OUTPUT
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
+          ENABLE_KUBERNETES: ${{ secrets.ENABLE_KUBERNETES }}
 
   build-backend:
     name: Build backend image
