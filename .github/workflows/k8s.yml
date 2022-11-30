@@ -13,7 +13,7 @@ jobs:
         if: "${{ env.ENABLE_KUBERNETES != '' }}"
         run: echo "DEFINED=true" >> $GITHUB_OUTPUT
         env:
-          ENABLE_KUBERNETES: ${{ secrets.ENABLE_KUBERNETESS }}
+          ENABLE_KUBERNETES: ${{ secrets.CLUSTER_ENV }}
 
   check-secret:
     runs-on: ubuntu-latest
