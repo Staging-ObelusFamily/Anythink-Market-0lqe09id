@@ -7,9 +7,9 @@ jobs:
   check-kubernetes-enabled:
     runs-on: ubuntu-latest
     outputs:
-      kubernetes-enabled: ${{ steps.enable_lubernetes_defined.outputs.DEFINED }}
+      kubernetes-enabled: ${{ steps.enable_kubernetes_defined.outputs.DEFINED }}
     steps:
-      - id: enable_lubernetes_defined
+      - id: enable_kubernetes_defined
         if: "${{ env.ENABLE_KUBERNETES != '' }}"
         run: echo "DEFINED=true" >> $GITHUB_OUTPUT
         env:
