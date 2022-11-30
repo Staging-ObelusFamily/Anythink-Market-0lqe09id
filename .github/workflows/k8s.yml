@@ -12,7 +12,7 @@ jobs:
       - name: Dump GitHub context
         env:
           ENABLE_KUBERNETES: ${{ secrets.ENABLE_KUBERNETES }}
-        run: echo "ENABLE_KUBERNETES"
+        run: echo "$ENABLE_KUBERNETES"
 
       - id: enable-kubernetes-defined
         if: "${{ env.ENABLE_KUBERNETES != '' }}"
