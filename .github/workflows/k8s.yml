@@ -7,12 +7,10 @@ jobs:
   check-kubernetes-enabled:
     runs-on: ubuntu-latest
     outputs:
-      kubernetes-enabled: ${{ steps.check-kubernetes-enabled.outputs.ENABLED }}
+      kubernetes-enabled: ${{ steps.check-kubernetes-enabled.outputs.DEFINED }}
     steps:
       - id: check-kubernetes-enabled
-        run: echo "ENABLED=true" >> $GITHUB_OUTPUT
-        env:
-          ENABLE_KUBERNETES: ${{ secrets.ENABLE_KUBERNETES }}
+        run: echo "DEFINED=true" >> $GITHUB_OUTPUT
 
   check-secret:
     runs-on: ubuntu-latest
@@ -20,7 +18,7 @@ jobs:
     outputs:
       aws-creds-defined: ${{ steps.aws-creds-defined.outputs.DEFINED }}
       kubeconfig-defined: ${{ steps.kubeconfig-defined.outputs.DEFINED }}
-#    if: needs.check-kubernetes-enabled.outputs.kubernetes-enabled == 'true'
+    if: needs.check-kubernetes-enabled.outputs.kubernetes-enabled == 'true'
     steps:
       - id: aws-creds-defined
         if: "${{env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != '' }}"
