@@ -18,7 +18,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - id: kubeconfig-defined
-        if: "${{  && env.KUBECONFIG != '' }}"
+        if: "${{ env.KUBECONFIG != '' }}"
         run: echo "DEFINED=true" >> $GITHUB_OUTPUT
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
