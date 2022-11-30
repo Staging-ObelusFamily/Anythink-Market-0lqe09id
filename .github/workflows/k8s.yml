@@ -10,10 +10,10 @@ jobs:
       kubernetes-enabled: ${{ steps.enable-kubernetes-defined.outputs.DEFINED }}
     steps:
       - id: enable-kubernetes-defined
-        if: "${{ env.AWS_ACCESS_KEY_ID != '' }}"
+        if: "${{ env.ENABLE_KUBERNETES != '' }}"
         run: echo "DEFINED=true" >> $GITHUB_OUTPUT
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          ENABLE_KUBERNETES: ${{ secrets.ENABLE_KUBERNETES }}
 
   check-secret:
     runs-on: ubuntu-latest
