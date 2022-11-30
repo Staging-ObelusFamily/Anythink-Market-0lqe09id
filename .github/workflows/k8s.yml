@@ -11,7 +11,7 @@ jobs:
     steps:
       - id: kubernetes-flag-defined
         if: "${{ env.ENABLE_KUBERNETES != '' }}"
-        run: echo "DEFINED=true" >> $GITHUB_OUTPUT
+        run: echo "::set-output name=DEFINED::true"
         env:
           ENABLE_KUBERNETES: ${{ secrets.ENABLE_KUBERNETES }}
 
