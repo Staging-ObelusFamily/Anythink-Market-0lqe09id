@@ -4,25 +4,37 @@ on:
     branches:
       - main
 jobs:
+  check-kubernetes-enabled:
+    runs-on: ubuntu-latest
+    outputs:
+      kubernetes-enabled: ${{ steps.check-kubernetes-enabled.outputs.ENABLED }}
+    steps:
+      - id: check-kubernetes-enabled
+        if: "${{ env.ENABLE_KUBERNETES != ''}}"
+        run: echo "ENABLED=true" >> $GITHUB_OUTPUT
+        env:
+            KUBERNETES_ENABLED: ${{ secrets.KUBERNETES_ENABLED }}
+
   check-secret:
     runs-on: ubuntu-latest
+    needs: [check-secret]
     outputs:
       aws-creds-defined: ${{ steps.aws-creds-defined.outputs.DEFINED }}
       kubeconfig-defined: ${{ steps.kubeconfig-defined.outputs.DEFINED }}
+    if: needs.check-kubernetes-enabled.outputs.kubernetes-enabled == 'true'
     steps:
       - id: aws-creds-defined
-        if: "${{ env.ENABLE_KUBERNETES != '' && env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != '' }}"
+        if: "${{env.AWS_ACCESS_KEY_ID != '' && env.AWS_SECRET_ACCESS_KEY != '' }}"
         run: echo "DEFINED=true" >> $GITHUB_OUTPUT
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - id: kubeconfig-defined
-        if: "${{ env.ENABLE_KUBERNETES != '' && env.KUBECONFIG != '' }}"
+        if: "${{ env.KUBECONFIG != '' }}"
         run: echo "DEFINED=true" >> $GITHUB_OUTPUT
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
-          ENABLE_KUBERNETES: ${{ secrets.ENABLE_KUBERNETES }}
 
   build-backend:
     name: Build backend image
